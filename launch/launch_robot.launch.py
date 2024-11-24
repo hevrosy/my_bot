@@ -85,6 +85,16 @@ def generate_launch_description():
         )
     )
 
+    twist_stamper = Node(
+    package='twist_stamper',
+    executable='twist_stamper',
+    parameters=[{'use_sim_time': False}],
+    remappings=[
+        ('/cmd_vel_in', '/diff_cont/cmd_vel_unstamped'),
+        ('/cmd_vel_out', '/diff_cont/cmd_vel'),
+    ]
+)
+
 
     # Code for delaying a node (I haven't tested how effective it is)
     # 
@@ -111,5 +121,6 @@ def generate_launch_description():
         twist_mux,
         delayed_controller_manager,
         delayed_diff_drive_spawner,
-        delayed_joint_broad_spawner
+        delayed_joint_broad_spawner,
+        twist_stamper
     ])
